@@ -1,47 +1,9 @@
+#include "Unit.h"
 #include <string>
 #include <iostream>
 #include <stdlib.h>
 #include <time.h> 
 #include <sstream>
-using namespace std;
-
-class Unit
-{
-private:
-   string name;
-   string unitClass;
-   int level;
-   int str, dex, con, wis, intel, cha, skill;
-   int carryWeight, hp, maxHp;
-   int hitRate, avoid;
-public:
-   int getHp() { return hp; }
-   string toString();
-   Unit();
-   Unit(string name, string unitClass, int level, int str, int dex, int con, int wis, int intel, int cha, int skill);
-   bool attack(Unit &target);
-   bool update();
-   bool damage(int damage);
-};
-int main()
-{
-   //this code is dummy code to test two units attacking.
-   //testman attacks testman2
-   srand(time(NULL));
-   Unit testMan = Unit("testman", "test", 1, 10, 10, 10, 10, 10, 10, 10);
-   Unit testerTwo = Unit("testman2", "test", 1, 10, 10, 10, 10, 10, 10, 10);
-   cout << testerTwo.toString();
-   cout << testerTwo.getHp() << endl;
-   testMan.attack(testerTwo);
-   cout << testerTwo.getHp() << endl;
-   testMan.attack(testerTwo);
-   cout << testerTwo.getHp() << endl;
-   testMan.attack(testerTwo);
-   cout << testerTwo.getHp() << endl;
-   cout << testerTwo.toString();
-
-   return 0;
-}
 string Unit::toString()
 {
    stringstream strm;
