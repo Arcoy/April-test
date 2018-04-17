@@ -8,16 +8,19 @@ string Unit::toString()
 {
    stringstream strm;
    strm << name << endl;
-   strm << unitClass << " level " << level << endl;
+   strm << unitClass << " lv " << level << endl;
    strm << "Hp: " << hp << "/" << maxHp << endl;
+
    strm << "str " << stats[0];
    if (statmods[0] != 0)
       strm << " +" << statmods[0];
    strm << endl;
+
    strm << "dex " << stats[1];
-   if (statmods[2] != 0)
-      strm << " +" << statmods[2];
+   if (statmods[1] != 0)
+      strm << " +" << statmods[1];
    strm << endl;
+
    strm << "con " << stats[2];
    if (statmods[2] != 0)
       strm << " +" << statmods[2];
@@ -65,6 +68,8 @@ Unit::Unit(string name, string unitClass, int level, int str, int dex, int con, 
    {
       statmods[i] = 0;
    }
+   inventory[0] = Item(90);
+   use(0);
    update();
 }
 bool Unit::attack(Unit &target)
@@ -80,7 +85,7 @@ bool Unit::update()
 {
    hitRate = stats[6] + (2 * level) + statmods[6];
    avoid = stats[1] + (2 * level) + statmods[1];
-   maxHp = stats[2] + (2 * level) + statmods[2];
+   maxHp = stats[2] + (2 * level);
    hp = maxHp;
    return true;
 }
@@ -92,5 +97,11 @@ bool Unit::damage(int damage)
       hp = maxHp;
    if ((double)hp / maxHp < 0)
       hp = 0;
+   return true;
+}
+
+bool Unit::use(int item)
+{
+   inventory[item].use(statmods);
    return true;
 }
