@@ -7,7 +7,8 @@ private:
    string name;
    string unitClass;
    int level;
-   int str, dex, con, wis, intel, cha, skill;
+   int stats[7];
+   int statmods[7];
    int carryWeight, hp, maxHp;
    int hitRate, avoid;
 public:
