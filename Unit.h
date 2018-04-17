@@ -1,4 +1,5 @@
 #include <string>
+#include "Item.h"
 using namespace std;
 
 class Unit
@@ -11,6 +12,7 @@ private:
    int statmods[7];
    int carryWeight, hp, maxHp;
    int hitRate, avoid;
+   Item inventory[5];
 public:
    int getHp() { return hp; }
    string toString();
@@ -19,4 +21,5 @@ public:
    bool attack(Unit &target);
    bool update();
    bool damage(int damage);
+   bool use(int item);
 };
