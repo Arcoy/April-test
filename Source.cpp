@@ -10,8 +10,8 @@ using namespace std;
 int main()
 {
    srand(time(NULL));
-   Unit testMan = Unit("testman", "test", 1, 10, 10, 10, 10, 10, 10,10);
-   Unit testerTwo = Unit("testman2", "test", 1, 10, 10, 10, 10, 10, 10, 10);
+   Unit testMan = Unit("Robin", "Tactician", 1, 10, 10, 10, 10, 10, 10, 10);
+   Unit testerTwo = Unit("Grima", "Dark Dragon", 1, 10, 10, 10, 10, 10, 10, 10);
    cout << testerTwo.toString();
    cout << testerTwo.getHp() << endl;
    testMan.attack(testerTwo);
