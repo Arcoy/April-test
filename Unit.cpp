@@ -68,16 +68,35 @@ Unit::Unit(string name, string unitClass, int level, int str, int dex, int con, 
    {
       statmods[i] = 0;
    }
-   inventory[0] = Item(90);
-   use(0);
+   for (int i = 0; i < 20; i++)
+   {
+      inventory[i] = NULL;
+   }
+   carryWeight = str*2+20;
+   carryRemaining = carryWeight;
    update();
+   hp = maxHp;
 }
 bool Unit::attack(Unit &target)
 {
    int chance = (hitRate - target.avoid) + 50;
    int randNum = (rand() % 100 + 1 + rand() % 100 + 1) / 2;
    if (randNum <= chance)
-      target.damage(1);
+   {
+      int damage = (stats[0] + statmods[0]) - (target.stats[2] + target.statmods[2]);
+      if (damage < 0)
+      {
+         damage = 0;
+      }
+      if (randNum <= 25)
+      {
+         target.damage(damage * 3);
+      }
+      else
+      {
+         target.damage(damage);
+      }
+   }
    return true;
 }
 
@@ -86,7 +105,6 @@ bool Unit::update()
    hitRate = stats[6] + (2 * level) + statmods[6];
    avoid = stats[1] + (2 * level) + statmods[1];
    maxHp = stats[2] + (2 * level);
-   hp = maxHp;
    return true;
 }
 
