@@ -3,14 +3,16 @@
 
 7 visible stats: Strength, Dexterity, Constitution, Wisdom, Intelegence, Charisma, Skill
 
-3 "invisible stats": Hit Rate, Avoid Rate
+2 "invisible stats": Hit Rate, Avoid Rate
 
 It also has a carry weight and Inventory
+### bonus stats:
+bonus stats are granted from accesories, weapons and armor. The most comon being +str from weapons, and -spd +con from armor.
 
 ### Invisible Stats:
 #### Hit Rate:
-skill + (2 * level)
+skill + bonus skill + (2 * level) 
 #### Avoid:
-Dex + (2 *level)
+Dex + bonus dex + (2 *level)
 #### Max Hit Points
 con + (2 * level)
