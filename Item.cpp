@@ -7,6 +7,10 @@
 #include <fstream>
 using namespace std;
 
+Item::~Item()
+{
+}
+
 Item::Item()
 {
    setToDefault();
@@ -53,13 +57,12 @@ bool Item::use(int statMods[7])
 void Item::setToDefault()
 {
    this->id = 000;
-   this->name = "Iron Sword";
-   this->maxUses = 1;
-   this->uses = 1;
-   this->weight = 1;
+   this->name = "";
+   this->maxUses = 0;
+   this->uses = 0;
+   this->weight = 0;
    this->equiped = false;
-   statBonus[0] = 1;
-   for (int i = 1; i < 7; i++) {
+   for (int i = 0; i < 7; i++) {
       statBonus[i] = 0;
    }
 }
