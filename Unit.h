@@ -10,9 +10,9 @@ private:
    int level;
    int stats[7];
    int statmods[7];
-   int carryWeight, hp, maxHp;
+   int carryWeight, hp, maxHp, carryRemaining;
    int hitRate, avoid;
-   Item inventory[5];
+   Item inventory[20];
 public:
    int getHp() { return hp; }
    string toString();
