@@ -9,6 +9,7 @@ using namespace std;
 
 Item::~Item()
 {
+   cout << name<<" Deleted"<<endl;
 }
 
 Item::Item()
@@ -18,8 +19,8 @@ Item::Item()
 
 Item::Item(int id)
 {
-   stringstream strm;
-   strm << "id" << id;
+   /*stringstream test;
+   test << "id" << id;
    string line;
    string archiveId;
    ifstream itemList;
@@ -29,7 +30,7 @@ Item::Item(int id)
       while (getline(itemList, line))
       {
          archiveId = line.substr(0, 4);
-         if (archiveId == strm.str())
+         if (archiveId == test.str())
          {
             cout << "Item loaded" << endl;
          }
@@ -39,7 +40,8 @@ Item::Item(int id)
          }
       }
    }
-   itemList.close();
+   itemList.close(); */
+
 }
 
 Item::Item(string name, int weight, int maxUses)
@@ -54,10 +56,11 @@ bool Item::use(int statMods[7])
    }
    return true;
 }
+
 void Item::setToDefault()
 {
    this->id = 000;
-   this->name = "";
+   this->name = "-";
    this->maxUses = 0;
    this->uses = 0;
    this->weight = 0;
@@ -65,4 +68,42 @@ void Item::setToDefault()
    for (int i = 0; i < 7; i++) {
       statBonus[i] = 0;
    }
+}
+void Item::setToTest()
+{
+   this->id = 001;
+   this->name = "Moonstone band";
+   this->maxUses = 0;
+   this->uses = 0;
+   this->weight = 1;
+   this->equiped = false;
+   for (int i = 0; i < 7; i++) {
+      statBonus[i] = 1;
+   }
+   this->desc = "A small stone ring that shimmers in the moonlight. All stats +1";
+   this->effectText = "All stats +1";
+}
+
+bool Item::equip()
+{
+   equiped = true;
+   return true;
+}
+
+bool Item::unequip()
+{
+   equiped = false;
+   return true;
+}
+
+string Item::toString()
+{
+   stringstream strm;
+   strm << name << ": ";
+   strm << weight << " lbs ";
+   if (equiped)
+      strm << "Equiped";
+   strm << endl;
+   strm << "   " <<desc << endl;
+   return strm.str();
 }
