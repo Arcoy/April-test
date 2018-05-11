@@ -1,16 +1,16 @@
 #pragma once
 #include "Item.h"
-class Weapon :
+class Accessory :
    public Item
 {
    friend class UI;
 private:
-   int range;
    Type type;
 public:
    Type getType() { return type; }
-   Weapon();
-   Weapon(int id);
-   ~Weapon();
+   Accessory();
+   Accessory(int id);
+   ~Accessory();
+   string toString();
 };
 

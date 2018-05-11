@@ -4,14 +4,17 @@ using namespace std;
 
 class Item
 {
+   friend class UI;
 protected:
    int id;
    string name;
    string desc;
    string effectText;
+   string itemLoad;
    int weight, uses, maxUses;
    bool equiped;
    int statBonus[7]; //If an equiped item grants bonus stats, they are stored here
+   enum Type { sword, axe, lance, bow, crossbow, staff, wand, shield, ring, cape, helmet, boots, gauntlets, pendant, none};
 public:
    ~Item();
    Item();
@@ -28,5 +31,7 @@ public:
    string getName() { return name; }
    string getEffectText() { return effectText; }
    virtual string toString();
+   virtual Type getType();
+   virtual Type stringToType(string makeType);
 };
 

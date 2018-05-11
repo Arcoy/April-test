@@ -1,18 +1,26 @@
-#include "Accesory.h"
+#include "Accessory.h"
 #include "Item.h"
-#include <sstream>;
+#include <sstream>
+#include <iostream>
+using namespace std;
 
 
-Accesory::Accesory() : Item()
+Accessory::Accessory() : Item()
 {
+
+}
+
+Accessory::Accessory(int id) : Item(id)
+{
+   type = stringToType(itemLoad);
 }
 
 
-Accesory::~Accesory()
+Accessory::~Accessory()
 {
 }
 
-string Accesory::toString()
+string Accessory::toString()
 {
       stringstream strm;
       strm << name << ": ";

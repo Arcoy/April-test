@@ -19,28 +19,50 @@ Item::Item()
 
 Item::Item(int id)
 {
-   /*stringstream test;
-   test << "id" << id;
-   string line;
-   string archiveId;
+   stringstream tempInt;
    ifstream itemList;
    itemList.open("ItemList.txt");
+   int testId = 0;
+   int temp = 0;
    if (itemList.is_open())
    {
-      while (getline(itemList, line))
+      while (getline(itemList, itemLoad) && itemList.is_open())
       {
-         archiveId = line.substr(0, 4);
-         if (archiveId == test.str())
+         tempInt.clear();
+         tempInt.str("");
+         tempInt << itemLoad.front();
+         tempInt >> testId;
+
+         if (testId == id)
          {
-            cout << "Item loaded" << endl;
-         }
-         else
-         {
-            setToDefault();
+            itemList.close();
+            this->id = id;
+            itemLoad = itemLoad.substr(itemLoad.find(" ") + 2);
+            this->name = itemLoad.substr(0, itemLoad.find("\""));
+            itemLoad = itemLoad.substr(itemLoad.find("\"") + 2);
+            for (int i = 0; i < 7; i++)
+            {
+               tempInt.clear();
+               tempInt.str("");
+               tempInt << itemLoad.front();
+               tempInt >> statBonus[i];
+               itemLoad = itemLoad.substr(itemLoad.find(" ")+1);
+            }
+            tempInt.clear();
+            tempInt.str("");
+            tempInt << itemLoad.front();
+            tempInt >> weight;
+            itemLoad = itemLoad.substr(3);
+            this->desc = itemLoad.substr(0, itemLoad.find("\""));
+            itemLoad = itemLoad.substr(itemLoad.find("\""));
+            if (itemLoad != "\"")
+               itemLoad = itemLoad.substr(2);
+            else
+               itemLoad = "";
          }
       }
    }
-   itemList.close(); */
+   itemList.close(); 
 
 }
 
@@ -72,7 +94,7 @@ void Item::setToDefault()
 void Item::setToTest()
 {
    this->id = 001;
-   this->name = "Moonstone band";
+   this->name = "Moonstone Band";
    this->maxUses = 0;
    this->uses = 0;
    this->weight = 1;
@@ -80,7 +102,7 @@ void Item::setToTest()
    for (int i = 0; i < 7; i++) {
       statBonus[i] = 1;
    }
-   this->desc = "A small stone ring that shimmers in the moonlight. All stats +1";
+   this->desc = "A small stone ring that glows faintly in the moonlight. All Stats +1";
    this->effectText = "All stats +1";
 }
 
@@ -107,3 +129,40 @@ string Item::toString()
    strm << "   " <<desc << endl;
    return strm.str();
 }
+
+Item::Type Item::getType()
+{
+   return Type();
+}
+
+Item::Type Item::stringToType(string makeType)
+{
+   if (makeType == "sword")
+      return sword;
+   if (makeType == "axe")
+      return axe;
+   if (makeType == "lance")
+      return lance;
+   if (makeType == "bow")
+      return bow;
+   if (makeType == "crossbow")
+      return crossbow;
+   if (makeType == "staff")
+      return staff;
+   if (makeType == "wand")
+      return wand;
+   if (makeType == "shield")
+      return ring;
+   if (makeType == "cape")
+      return cape;
+   if (makeType == "helmet")
+      return helmet;
+   if (makeType == "boots")
+      return boots;
+   if (makeType == "gauntlets")
+      return gauntlets;
+   if (makeType == "pendant")
+      return pendant;
+   return none;
+}
+

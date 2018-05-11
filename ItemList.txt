@@ -1,0 +1,2 @@
+1 "Moonstone Band" 1 1 1 1 1 1 1 0 "A stone ring that shimmers gently in the moonlight. all stats +1" ring
+2 "Moonstone Blade" 5 1 1 1 1 1 1 5 "A slender blade that shimmers gently in the moonlight. str +4, all stats +1" sword

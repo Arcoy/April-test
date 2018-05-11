@@ -2,7 +2,11 @@
 
 
 
-Weapon::Weapon()
+Weapon::Weapon() : Item()
+{
+}
+
+Weapon::Weapon(int id) : Item(id)
 {
 }
 

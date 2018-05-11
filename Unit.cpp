@@ -1,4 +1,5 @@
 #include "Unit.h"
+#include "Weapon.h"
 #include <string>
 #include <iostream>
 #include <stdlib.h>
@@ -6,6 +7,8 @@
 #include <algorithm>
 #include <sstream>
 #include <typeinfo>
+
+
 Unit::~Unit()
 {
    for (int i = 0; i < 5; i++)
@@ -19,6 +22,7 @@ Unit::~Unit()
          delete inventory[i];
    }
 }
+
 string Unit::toString()
 {
    stringstream strm;
@@ -52,7 +56,7 @@ string Unit::toString()
    {
       strm << endl;
    }
-   strm << "Accesory 1: ";
+   strm << "Accessory 1: ";
    if (equipment[3] != NULL)
    {
       strm << equipment[3]->getName() << endl;
@@ -61,7 +65,7 @@ string Unit::toString()
    {
       strm << endl;
    }
-   strm << "Accesory 2: ";
+   strm << "Accessory 2: ";
    if (equipment[4] != NULL)
    {
       strm << equipment[4]->getName() << endl;
@@ -222,28 +226,89 @@ void Unit::resetBonus()
 
 bool Unit::addItem(Item *item)
 {
-   if (carryRemaining - item->getWeight() >= 0)
+   if (carryWeight - inventoryWeight() - item->getWeight() >= 0)
    {
       inventory[invPos] = item;
       invPos++;
       return true;
    }
-   else
-   {
-      return false;
-   }
+   return false;
 }
 
 bool Unit::equip(int item)
 {
-   if ((string)typeid(*inventory[item]).name() == "class Accesory")
+   if ((string)typeid(*inventory[item]).name() == "class Accessory")
    {
-      equipment[3] = inventory[item];
-      equipment[3]->equip();
+      if (equipment[3] == NULL)
+      {
+         if (equipment[4] != NULL && inventory[item]->getType() == equipment[4]->getType())
+            return false;
+         equipment[3] = inventory[item];
+         equipment[3]->equip();
+         inventory[item] = NULL;
+         invPos--;
+      }
+      else
+      {
+         if (equipment[4] == NULL)
+         {
+            if (equipment[3] != NULL && inventory[item]->getType() == equipment[3]->getType())
+               return false;
+            equipment[4] = inventory[item];
+            equipment[4]->equip();
+            inventory[item] = NULL;
+            invPos--;
+         }
+      }
+      
+      update();
+      return true;
    }
-   invPos--;
+   if ((string)typeid(*inventory[item]).name() == "class Weapon")
+   {
+      if (equipment[0] != NULL)
+      {
+         Item *equip = inventory[item];
+         inventory[item] = NULL;
+         invPos--;
+         addItem(equipment[0]);
+         equipment[0] = equip;
+         equipment[0]->equip();
+      }
+      else
+      {
+         equipment[0] = inventory[item];
+         equipment[0]->equip();
+         inventory[item] = NULL;
+         invPos--;
+      }
+      update();
+      return true;
+   }
+   if ((string)typeid(*inventory[item]).name() == "class Armor")
+   {
+      if (equipment[2] != NULL)
+      {
+         Item *equip = inventory[item];
+         inventory[item] = NULL;
+         invPos--;
+         addItem(equipment[2]);
+         equipment[2] = equip;
+         equipment[2]->equip();
+      }
+      else
+      {
+         equipment[2] = inventory[item];
+         equipment[2]->equip();
+         inventory[item] = NULL;
+         invPos--;
+      }
+      update();
+      return true;
+   }
+
    update();
-   return true;
+   return false;
 }
 
 bool Unit::unequip(int item)
@@ -272,4 +337,16 @@ void Unit::sortInventory()
    {
       inventory[i] = sortTray[i];
    }
+}
+
+string Unit::getInventory()
+{
+   stringstream strm;
+   for (int i = 0; i < 200; i++)
+   {
+      if (inventory[i] = NULL)
+         break;
+      strm << inventory[i]->getName() << endl;
+   }
+   return strm.str();
 }
